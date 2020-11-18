@@ -73,4 +73,13 @@ export default class API_CCS {
       return Promise.resolve(res);
     });
   }
+
+  guardaFecha(data){
+    return this.fetch(hostURL + "/v1/capacitacion/FechasLogin", {
+      method: "POST",
+       body: JSON.stringify(data),
+    }).then(res => {
+      return Promise.resolve(res);
+    });
+  }
 }
