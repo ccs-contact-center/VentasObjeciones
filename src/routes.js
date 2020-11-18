@@ -20,7 +20,6 @@ const routes = [
   { path: '/temarioViews/TemaTresView', name: 'Lineamientos generales de la Metodología P 2', component: TemaTresView },
   { path: '/temarioViews/TemaCuatroView', name: 'Lineamientos generales de la Metodología P 3', component: TemaCuatroView },
 
-
 ];
 
 
