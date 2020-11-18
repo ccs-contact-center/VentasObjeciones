@@ -1,7 +1,7 @@
 import decode from "jwt-decode";
 
-const hostURL = "https://api.ccscontactcenter.com";
-//const hostURL = 'http://localhost:3020'
+//const hostURL = "https://api.ccscontactcenter.com";
+const hostURL = 'http://localhost:3020'
 
 export default class AuthService {
   constructor(domain) {
