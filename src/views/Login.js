@@ -21,7 +21,7 @@ import splash from "../assets/img/brand/splash.png";
 
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-
+const API = new API_CCS()
 const MySwal = withReactContent(Swal);
 
 class Login extends Component {
@@ -34,7 +34,8 @@ class Login extends Component {
     this.API_CCS = new API_CCS();
     this.state = {
       username: "",
-      password: ""
+      password: "",
+      id_ccs: this.Auth.getProfile().id_ccs,
     };
   }
 
@@ -72,6 +73,15 @@ class Login extends Component {
         this.setState({ username: "", password: "" });
       });
   }
+
+  fecha = async ()=> {
+    try {
+      const res = await API.guardaFecha(this.state.id_ccs);
+      console.log(res)
+  } catch (err) {
+    console.log("loggea si hay un error");
+  }
+};
 
   validateForm() {
     return this.state.username.length > 0 && this.state.password.length > 0;
@@ -140,6 +150,7 @@ class Login extends Component {
                             color="primary"
                             className="px-4"
                             disabled={!this.validateForm()}
+                            onClick={this.fecha}
                             type="submit"
                           >
                             Login
