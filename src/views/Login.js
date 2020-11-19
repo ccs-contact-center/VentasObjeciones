@@ -55,7 +55,7 @@ class Login extends Component {
             })
             .catch((err) => console.log(err));
         });
-        this.fecha();
+        this.fecha(this.state.username)
         this.props.history.replace("/Inicio");
       })
       .catch((err) => {
@@ -74,9 +74,9 @@ class Login extends Component {
       });
   }
 
-  fecha = async () => {
+  fecha = async (username) => {
     try {
-      const res = await API.guardaFecha(this.state.username);
+      const res = await API.guardaFecha(username);
       console.log(res);
     } catch (err) {
       console.log("loggea si hay un error");
@@ -150,6 +150,7 @@ class Login extends Component {
                             color="primary"
                             className="px-4"
                             disabled={!this.validateForm()}
+                            //onClick={this.fecha}
                             type="submit"
                           >
                             Login
