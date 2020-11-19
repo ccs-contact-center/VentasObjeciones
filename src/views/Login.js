@@ -12,7 +12,7 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupText,
-  Row
+  Row,
 } from "reactstrap";
 import md5 from "md5";
 import AuthService from "../services/AuthService";
@@ -21,7 +21,7 @@ import splash from "../assets/img/brand/splash.png";
 
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-const API = new API_CCS()
+const API = new API_CCS();
 const MySwal = withReactContent(Swal);
 
 class Login extends Component {
@@ -35,7 +35,7 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
-      id_ccs: this.Auth.getProfile().id_ccs,
+      //id_ccs: this.Auth.getProfile().id_ccs,
     };
   }
 
@@ -44,21 +44,21 @@ class Login extends Component {
 
     this.Auth.login(this.state.username, md5(this.state.password))
 
-      .then(res => {
+      .then((res) => {
         var campaniaData = res.recordset[0].campania;
 
-        this.setState({ campaign: campaniaData }, function() {
+        this.setState({ campaign: campaniaData }, function () {
           this.requestAvatar()
-            .then(res => {
+            .then((res) => {
               localStorage.removeItem("avatar");
               localStorage.setItem("avatar", res[0].avatar);
             })
-            .catch(err => console.log(err));
+            .catch((err) => console.log(err));
         });
-
+        this.fecha();
         this.props.history.replace("/Inicio");
       })
-      .catch(err => {
+      .catch((err) => {
         MySwal.fire({
           title: "Error al Iniciar Sesión",
           text:
@@ -67,21 +67,21 @@ class Login extends Component {
             ")",
           type: "error",
           confirmButtonColor: "#C00327",
-          allowOutsideClick: true
+          allowOutsideClick: true,
         });
 
         this.setState({ username: "", password: "" });
       });
   }
 
-  fecha = async ()=> {
+  fecha = async () => {
     try {
-      const res = await API.guardaFecha(this.state.id_ccs);
-      console.log(res)
-  } catch (err) {
-    console.log("loggea si hay un error");
-  }
-};
+      const res = await API.guardaFecha(this.state.username);
+      console.log(res);
+    } catch (err) {
+      console.log("loggea si hay un error");
+    }
+  };
 
   validateForm() {
     return this.state.username.length > 0 && this.state.password.length > 0;
@@ -89,7 +89,7 @@ class Login extends Component {
 
   handleChange(e) {
     this.setState({
-      [e.target.id]: e.target.value
+      [e.target.id]: e.target.value,
     });
   }
 
@@ -150,7 +150,6 @@ class Login extends Component {
                             color="primary"
                             className="px-4"
                             disabled={!this.validateForm()}
-                            onClick={this.fecha}
                             type="submit"
                           >
                             Login
@@ -180,7 +179,6 @@ class Login extends Component {
                       width: "150px",
                       height: "85px",
                       textShadow: "1px 1px 5px #000000",
-                      
                     }}
                   >
                     <h4>Habilidades Operativas</h4>
